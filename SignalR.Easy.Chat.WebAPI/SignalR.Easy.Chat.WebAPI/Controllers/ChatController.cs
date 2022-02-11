@@ -12,7 +12,7 @@ public class ChatController : Controller
     {
         _hubContext = hubContext;
     }
-    // GET
+    
     [HttpPost("SendMessage")]
     public async Task<IActionResult> SendMessage([FromBody]ChatReq req)
     {
