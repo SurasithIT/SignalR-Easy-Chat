@@ -8,7 +8,7 @@ using HubCallerContextDict = System.Collections.Concurrent.ConcurrentDictionary<
 public class ChatHub : Hub
 {
     // Mapping online user
-    static HubCallerContextDict _HubDict = new HubCallerContextDict();
+    public static HubCallerContextDict _HubDict = new HubCallerContextDict();
     
     public override Task OnConnectedAsync()
     {
