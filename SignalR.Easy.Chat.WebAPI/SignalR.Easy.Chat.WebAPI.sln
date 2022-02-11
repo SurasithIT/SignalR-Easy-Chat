@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalR.Easy.Chat.WebAPI", "SignalR.Easy.Chat.WebAPI\SignalR.Easy.Chat.WebAPI.csproj", "{FC304616-E1A8-492C-A297-2A7EA8B96ACE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC304616-E1A8-492C-A297-2A7EA8B96ACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC304616-E1A8-492C-A297-2A7EA8B96ACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC304616-E1A8-492C-A297-2A7EA8B96ACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC304616-E1A8-492C-A297-2A7EA8B96ACE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
