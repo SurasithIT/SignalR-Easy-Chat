@@ -30,4 +30,20 @@ public class ChatHub : Hub
         
         return base.OnDisconnectedAsync(exception);
     }
+    
+    public async Task SendMessage(string receiverUserName, string message, string senderUserName)
+    {
+        try
+        {
+            receiverUserName = (receiverUserName ?? "").ToLower();
+            if (_HubDict.TryGetValue(receiverUserName, out HubCallerContext _receiverContext))
+            {
+                await Clients.Client(_receiverContext.ConnectionId).SendAsync("ReceiveMessage", senderUserName, message);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }
+    }
 }
