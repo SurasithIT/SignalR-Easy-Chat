@@ -64,7 +64,6 @@ export class SignalRService {
   }
 
   async sendMessageByCallAPI(receiverUserName: string, message: string, senderUserName: string) {
-    // await this.connection?.invoke("SendMessage", receiverUserName, message, senderUserName).catch(ex => console.error(ex));
     const param = {
       receiverUserName: receiverUserName,
       message: message,
