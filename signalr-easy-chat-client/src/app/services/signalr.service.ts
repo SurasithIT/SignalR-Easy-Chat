@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as signalR from '@microsoft/signalr';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, Subject } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 interface Message {
   messageOf: MessageOfEnum,
@@ -22,7 +23,9 @@ export class SignalRService {
   private messages: BehaviorSubject<Message[]> = new BehaviorSubject<Message[]>([]);
   public messages$: Observable<Message[]> = this.messages.asObservable();
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
   async connect(userName: string) {
     if (!userName) {
@@ -58,6 +61,25 @@ export class SignalRService {
       senderUserName: senderUserName
     }
     this.messages.next([...this.messages.value, _message])
+  }
+
+  async sendMessageByCallAPI(receiverUserName: string, message: string, senderUserName: string) {
+    // await this.connection?.invoke("SendMessage", receiverUserName, message, senderUserName).catch(ex => console.error(ex));
+    const param = {
+      receiverUserName: receiverUserName,
+      message: message,
+      senderUserName: senderUserName
+    }
+    this.http.post<any>(environment.apiHost + "/SendMessage", param)
+      .pipe(catchError(async (ex) => console.error(ex)))
+      .subscribe(data => {
+        const _message: Message = {
+          messageOf: MessageOfEnum.Sender,
+          messageText: message,
+          senderUserName: senderUserName
+        }
+        this.messages.next([...this.messages.value, _message])
+      });
   }
 
   addMessageListener() {

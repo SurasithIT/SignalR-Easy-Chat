@@ -100,17 +100,8 @@ export class AppComponent implements OnInit, OnDestroy {
     const receiverUserName = this.sendMessageForm.get("receiverUserName")?.value;
     const message = this.sendMessageForm.get("message")?.value;
 
-    const param = {
-      receiverUserName: receiverUserName,
-      message: message,
-      senderUserName: this.userName
-    }
-
-    this.http.post<any>(environment.apiHost + "/SendMessage", param)
-      .subscribe(data => {
-        console.log(data)
-        this.sendMessageForm.get("message")?.setValue(null);
-      });
+    await this.signalRService.sendMessageByCallAPI(receiverUserName, message, this.userName)
+    this.sendMessageForm.get("message")?.setValue(null);
   }
 
   ngOnDestroy(): void {

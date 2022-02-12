@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiHost: "https://localhost:7289",
-  signalRHost: "https://localhost:7289/ChatHub"
+  apiHost: "http://localhost:5266",
+  signalRHost: "http://localhost:5266/ChatHub"
 };
 
 /*

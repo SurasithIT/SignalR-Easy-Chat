@@ -3,7 +3,8 @@
     <form class="form-group" [formGroup]="userNameForm" (submit)="connect()">
       <label for="user-name" class="form-label">Your Username</label>
       <div class="input-group">
-        <input type="text" class="form-control" name="user-name" placeholder="Your Username" formControlName="userName">
+        <input type="text" class="form-control" name="user-name" placeholder="Your Username" formControlName="userName"
+          autocomplete="off">
         <button type="submit" class="btn btn-primary">Connect</button>
       </div>
     </form>
@@ -13,13 +14,13 @@
     <form class="form-group" [formGroup]="sendMessageForm" (submit)="sendMessage()">
       <label for="receiver-user-name" class="form-label">Send to</label>
       <input type="text" class="form-control" name="receiver-user-name" placeholder="Receiver user name"
-        formControlName="receiverUserName">
+        formControlName="receiverUserName" autocomplete="off">
       <label for="message" class="form-label">Message</label>
       <div class="input-group">
-        <input type="text" class="form-control" name="message" placeholder="type your message"
-          formControlName="message">
+        <input type="text" class="form-control" name="message" placeholder="type your message" formControlName="message"
+          autocomplete="off">
         <button type="submit" class="btn btn-primary">Send</button>
-        <button type="button" class="btn btn-secondary" (click)="sendMessageByAPI()">Send by API</button>
+        <button type="button" class="btn btn-primary" (click)="sendMessageByAPI()">Send by Call API</button>
       </div>
     </form>
   </div>
