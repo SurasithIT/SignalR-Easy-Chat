@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import '../services/signalr_service.dart';
+import 'package:signalr_easy_chat_flutter/src/services/signalr_service.dart';
 
-class ChatPage extends StatefulWidget {
-  const ChatPage({Key? key}) : super(key: key);
+class ChatScreen extends StatefulWidget {
+  const ChatScreen({Key? key}) : super(key: key);
   final String title = "Chat";
 
   @override
-  State<ChatPage> createState() => _ChatPageState();
+  State<ChatScreen> createState() => _ChatScreenState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+class _ChatScreenState extends State<ChatScreen> {
   final _formKey = GlobalKey<FormState>();
   final _receiverUserNameController = TextEditingController();
   final _messageController = TextEditingController();
