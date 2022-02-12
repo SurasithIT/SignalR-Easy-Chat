@@ -4,37 +4,40 @@ import 'package:signalr_netcore/signalr_client.dart';
 import 'package:rxdart/rxdart.dart';
 
 class SignalRService {
-  late HubConnection? hubConnection = null;
+  late HubConnection? hubConnection;
   late String _userName;
-  final BehaviorSubject<List<MessageModel>> messages = BehaviorSubject<List<MessageModel>>.seeded([]);
+  final BehaviorSubject<List<MessageModel>> messages =
+      BehaviorSubject<List<MessageModel>>.seeded([]);
   List<MessageModel> _messages = [];
 
   Future<void> connect(String userName) async {
     _userName = userName;
-    this.hubConnection = HubConnectionBuilder().withUrl(Constant.hubConnectionUrl + "?userName=$_userName").build();
+    hubConnection = HubConnectionBuilder()
+        .withUrl(Constant.hubConnectionUrl + "?userName=$_userName")
+        .build();
     hubConnection?.onclose(({Exception? error}) => print("Connection Closed"));
 
-    return hubConnection!.start()?.catchError((error) =>
-    {
-      print("Connection error $error"),
-      throw error
-    });
+    return hubConnection!.start()?.catchError(
+        (error) => {print("Connection error $error"), throw error});
   }
 
   Future<void> disconnect() async {
     _messages = [];
     messages.add(_messages);
 
-    if(hubConnection != null){
+    if (hubConnection != null) {
       await hubConnection?.stop();
       hubConnection = null;
-
     }
   }
 
   Future<void> sendMessage(String receiverUserName, String message) async {
-    await hubConnection?.invoke("SendMessage",args: <String>[receiverUserName, message, _userName]);
-    _messages.add(new MessageModel(messageOf: MessageOfEnum.Sender, messageText: message, senderUserName: _userName));
+    await hubConnection?.invoke("SendMessage",
+        args: <String>[receiverUserName, message, _userName]);
+    _messages.add(MessageModel(
+        messageOf: MessageOfEnum.Sender,
+        messageText: message,
+        senderUserName: _userName));
     messages.add(_messages);
   }
 
@@ -44,10 +47,12 @@ class SignalRService {
 
   void _handleAClientProvidedFunction(List<Object>? parameters) {
     print(parameters?.toString());
-    _messages.add(new MessageModel(messageOf: MessageOfEnum.Receiver, messageText: parameters != null ? parameters[1].toString() : '', senderUserName:  parameters != null ? parameters[0].toString() : ''));
+    _messages.add(MessageModel(
+        messageOf: MessageOfEnum.Receiver,
+        messageText: parameters != null ? parameters[1].toString() : '',
+        senderUserName: parameters != null ? parameters[0].toString() : ''));
     messages.add(_messages);
-    // logger.log(LogLevel.Information, "Server invoked the method");
   }
 }
 
-SignalRService signalRService = new SignalRService();
+SignalRService signalRService = SignalRService();
