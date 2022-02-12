@@ -42,10 +42,10 @@ class SignalRService {
   }
 
   void addMessageListener() async {
-    hubConnection?.on("ReceiveMessage", _handleAClientProvidedFunction);
+    hubConnection?.on("ReceiveMessage", _handleReceiveMessage);
   }
 
-  void _handleAClientProvidedFunction(List<Object>? parameters) {
+  void _handleReceiveMessage(List<Object>? parameters) {
     print(parameters?.toString());
     _messages.add(MessageModel(
         messageOf: MessageOfEnum.Receiver,
