@@ -1,4 +1,4 @@
-import '../utils/constant.dart';
+import 'package:signalr_easy_chat_flutter/src/utils/constant.dart';
 
 class MessageModel{
   final MessageOfEnum messageOf;
